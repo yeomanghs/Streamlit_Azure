@@ -10,7 +10,7 @@ file = st.file_uploader("Upload file", type = ['csv', 'xlsx'])
 
 #function to read file
 # @st.cache(suppress_st_warning = True, allow_output_mutation=True)
-@st.cache_data()
+# @st.cache_data()
 def load_data(file_uploaded):
     if '.xlsx' in file_uploaded.name:
         return pd.read_excel(file_uploaded)
