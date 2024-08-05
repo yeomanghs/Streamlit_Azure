@@ -47,16 +47,25 @@ if file:
 
         #if there is a result
     if result == 1:
-        if '.xlsx' in file.name:
-            # resultLoc2 = resultLoc + '.xlsx'
-            # fileStr = dfResult.to_excel(index = False)
-            # fileformat = 'xlsx'
-            fileStr = dfResult.to_csv(index = False)
-            fileformat = 'csv'  
-        elif '.csv' in file.name:
-            # resultLoc2 = resultLoc + '.csv'
-            fileStr = dfResult.to_csv(index = False)
-            fileformat = 'csv'       
-        b64 = base64.b64encode(fileStr.encode()).decode()  # some strings <-> bytes conversions necessary here
-        href = f'<a href="data:file/csv;base64,{b64}">Download CSV File</a> (right-click and save link as &lt;name&gt;.%s)'%fileformat
-        st.markdown(href, unsafe_allow_html=True)
+        # if '.xlsx' in file.name:
+        #     # resultLoc2 = resultLoc + '.xlsx'
+        #     # fileStr = dfResult.to_excel(index = False)
+        #     # fileformat = 'xlsx'
+        #     fileStr = dfResult.to_csv(index = False)
+        #     fileformat = 'csv'  
+        # elif '.csv' in file.name:
+        #     # resultLoc2 = resultLoc + '.csv'
+        #     fileStr = dfResult.to_csv(index = False)
+        #     fileformat = 'csv'       
+        # b64 = base64.b64encode(fileStr.encode()).decode()  # some strings <-> bytes conversions necessary here
+        # href = f'<a href="data:file/csv;base64,{b64}">Download CSV File</a> (right-click and save link as &lt;name&gt;.%s)'%fileformat
+        # st.markdown(href, unsafe_allow_html=True)
+
+        csv = dfResult.to_csv(index = False).encode('utf-8')
+        st.download_button(
+        "Press to download",
+        csv,
+        file_name = "Result.csv",
+        mime = "text/csv",
+        key = 'download'
+        )
