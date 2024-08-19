@@ -50,6 +50,7 @@ if file:
         st.markdown("Model run is completed. Please download result")
     except Exception as e:
         print(e)
+        st.markdown(e)
         result = 0
 
         #if there is a result
