@@ -1,7 +1,7 @@
 import streamlit as st
-#from sklearn.pipeline import Pipeline
+# from sklearn.pipeline import Pipeline
 from King.Preprocessing import King_Preprocessing
-# from EMEA_OM_King_process import callWebService
+from York.Preprocessing import York_Preprocessing
 import pandas as pd
 import json
 import base64
@@ -22,7 +22,8 @@ st.title("%s - %s Offer Model"%(region, model))
 file = st.file_uploader("Upload file", type = ['csv', 'xlsx'])
 
 #selected class of preprocessing
-preprocessingDict = {'King': King_Preprocessing()}
+preprocessingDict = {'King': King_Preprocessing(),
+                    'York':York_Preprocessing()}
 selectPreprocessing = preprocessingDict[model]
 
 #set up pipeline
@@ -50,7 +51,6 @@ if file:
         st.markdown("Model run is completed. Please download result")
     except Exception as e:
         print(e)
-        st.markdown(e)
         result = 0
 
         #if there is a result
