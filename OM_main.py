@@ -1,5 +1,5 @@
 import streamlit as st
-from sklearn.pipeline import Pipeline
+#from sklearn.pipeline import Pipeline
 from King.Preprocessing import King_Preprocessing
 # from EMEA_OM_King_process import callWebService
 import pandas as pd
