@@ -202,8 +202,7 @@ class York_Preprocessing(BaseEstimator):
                "ProspectType", "Tagvalue", "Year", "Zone", "Number of Records",
                "InitialOfferDate","CensusDate"
                ] + ['Scored Labels', 'Scored Probabilities', 'tag_date', 'TaskType',
-                   'TaskCreate', 'General_Tag', 'Assigned To', 'Task_Description',
-                   'Tier']
+                   'TaskCreate', 'General_Tag', 'Assigned To', 'Task_Description']
         for col in finalColumnList:
             if col not in dfResultFinal.columns:
                 if col in df.columns:
