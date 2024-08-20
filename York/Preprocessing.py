@@ -162,6 +162,7 @@ class York_Preprocessing(BaseEstimator):
             dfResultFinal = dfResult.copy()
 
         #get back original age
+        df = self.df.copy()
         dfResultFinal['Age'] = df['Age_Ori']
         dfResultFinal['tag_date'] = tagDate
         dfResultFinal['TaskType'] = taskType
