@@ -204,5 +204,9 @@ class York_Preprocessing(BaseEstimator):
                ] + ['Scored Labels', 'Scored Probabilities', 'tag_date', 'TaskType',
                    'TaskCreate', 'General_Tag', 'Assigned To', 'Task_Description',
                    'Tier']
-        dfFinal = df[finalColumnList].copy()
+        for col in finalColumnList:
+            if col not in dfResultFinal.columns:
+                if col in df.columns:
+                    dfResultFinal[col] = df[col]
+        dfFinal = dfResultFinal[finalColumnList].copy()
         return dfFinal
