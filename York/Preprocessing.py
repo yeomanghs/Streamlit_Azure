@@ -130,7 +130,11 @@ class York_Preprocessing(BaseEstimator):
         #version 1.1
         tagDate = "13/06/2024"
         taskType = 'Made Offer'
-
+        df = self.df.copy()
+        for col in ['Tagvalue', 'IntakeStatus', 'InitialOfferStatus', 'Year', 'COR',
+                'LoS']:
+            dfResult[col] = df[col]
+        dfResultFinal['Age'] = df['Age_Ori']
         dfResult['Scored Labels'] = np.where(dfResult['Scored Probabilities'].values> threshold, 1, 0)
         dfResult['General_Tag'] = np.where(dfResult['Scored Labels'] == 1, highTag, lowTag)
 
@@ -161,12 +165,9 @@ class York_Preprocessing(BaseEstimator):
         else:
             dfResultFinal = dfResult.copy()
 
-        #get back original age
-        df = self.df.copy()
-        dfResultFinal['Age'] = df['Age_Ori']
+        #get back original age       
         dfResultFinal['tag_date'] = tagDate
         dfResultFinal['TaskType'] = taskType
-        dfResultFinal['Tagvalue'] = df['Tagvalue']
         dfResultFinal['TaskCreate'] = np.where(dfResultFinal['Tagvalue'] == 'NULL', "No", "Yes")
 
         col         = 'General_Tag'
@@ -177,12 +178,9 @@ class York_Preprocessing(BaseEstimator):
 
         dfResultFinal['IntakeStatus'] = df['IntakeStatus']
         dfResultFinal['IntakeStatus'] = dfResultFinal['IntakeStatus'].fillna('')
-        dfResultFinal['LoS'] = df['LoS']
         dfResultFinal['LoS_ShortForm'] = dfResultFinal['LoS'].map(lambda x:LoS_Dict[x] if x in LoS_Dict.keys() else x)
         dfResultFinal['InitialOfferStatus'] = dfResultFinal['InitialOfferStatus'].map(lambda x:re.sub("Made Offer", "MO", x))
-        dfResultFinal['Year'] = df['Year']
         dfResultFinal['Year'] = dfResultFinal['Year'].astype(str).str[-2:]
-        dfResultFinal['COR'] = df['COR']
         dfResultFinal['COR'] = np.where(pd.isnull(dfResultFinal['COR']), '', dfResultFinal['COR'])
         dfResultFinal['LoS'] = dfResultFinal['LoS'].map(lambda x:{"Postgraduate":"PG", "Undergraduate":"UG"}.get(x, x))
         dfResultFinal['Task_Description'] = dfResultFinal['IntakeStatus'].astype(str) + '-' + dfResultFinal['Year'] + '_'  +  dfResultFinal['InitialOfferStatus'] \
@@ -207,5 +205,5 @@ class York_Preprocessing(BaseEstimator):
             if col not in dfResultFinal.columns:
                 if col in df.columns:
                     dfResultFinal[col] = df[col]
-        dfFinal = dfResultFinal[finalColumnList].copy()
+        dfFinal = df[finalColumnList].copy()
         return dfFinal
