@@ -26,8 +26,7 @@ file = st.file_uploader("Upload file", type = ['csv', 'xlsx'])
 #selected class of preprocessing
 preprocessingDict = {'King': King_Preprocessing(),
                     'York':York_Preprocessing(),
-                    'Birmingham':Birmingham_Preprocessing(),
-                    'Greenwich':Greenwich_Preprocessing()}
+                    'Birmingham':Birmingham_Preprocessing()}
 selectPreprocessing = preprocessingDict[model]
 
 #set up pipeline
