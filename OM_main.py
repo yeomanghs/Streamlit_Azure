@@ -3,13 +3,14 @@ import streamlit as st
 from King.Preprocessing import King_Preprocessing
 from York.Preprocessing import York_Preprocessing
 from Birmingham.Preprocessing import Birmingham_Preprocessing
+from Greenwich.UG_Preprocessing import Greenwich_Preprocessing
 import pandas as pd
 import json
 import base64
 
 #model list for APAC and EMEA
 modelList = {'APAC':['GriffDom'],
-            'EMEA':['King', 'York', 'Birmingham']}
+            'EMEA':['King', 'York', 'Birmingham', 'Greenwich']}
 
 #dropdown box
 region = st.selectbox('Select a region', ['APAC', 'EMEA'])
@@ -25,7 +26,8 @@ file = st.file_uploader("Upload file", type = ['csv', 'xlsx'])
 #selected class of preprocessing
 preprocessingDict = {'King': King_Preprocessing(),
                     'York':York_Preprocessing(),
-                    'Birmingham':Birmingham_Preprocessing()}
+                    'Birmingham':Birmingham_Preprocessing(),
+                    'Greenwich':Greenwich_Preprocessing()}
 selectPreprocessing = preprocessingDict[model]
 
 #set up pipeline
