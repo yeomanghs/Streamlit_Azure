@@ -63,8 +63,8 @@ class King_Preprocessing(BaseEstimator):
         resultJson = json.loads(json.loads(result))
         dfResult = pd.DataFrame(resultJson['result'], columns = colListNeeded + ['Scored Labels', 'Scored Probabilities'])
         #Data Manipulation to get final output
-        #predefine parameters
-        threshold = 0.2
+        #predefine parameters or from config
+        # threshold = 0.2
         medium_threshold = 0.14
         highTag = "PT_ENP_TagAXXXX_HIGHXXXX"
         mediumTag = "PT_ENP_TagAXXXX_MEDXXXXX"
