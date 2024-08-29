@@ -1,6 +1,7 @@
 import streamlit as st
 # from sklearn.pipeline import Pipeline
 from ApacGroupInt.Preprocessing import ApacGroupInt_Preprocessing
+from MacqDom.Preprocessing import MacqDom_Preprocessing
 from King.Preprocessing import King_Preprocessing
 from York.Preprocessing import York_Preprocessing
 from Birmingham.Preprocessing import Birmingham_Preprocessing
@@ -10,7 +11,7 @@ import json
 import base64
 
 #model list for APAC and EMEA
-modelList = {'APAC':['ApacGroupInt'],
+modelList = {'APAC':['ApacGroupInt', 'MacqDom'],
             'EMEA':['King', 'York', 'Birmingham', 'Greenwich']}
 
 #dropdown box
@@ -27,6 +28,7 @@ file = st.file_uploader("Upload file", type = ['csv', 'xlsx'])
 #selected class of preprocessing
 # 'ApacGroupInt':ApacGroupInt_Preprocessing(),
 preprocessingDict = {'ApacGroupInt':ApacGroupInt_Preprocessing(),
+                     'MacqDom':MacqDom_Preprocessing(),
                     'King': King_Preprocessing(),
                     'York':York_Preprocessing(),
                     'Birmingham':Birmingham_Preprocessing(),
