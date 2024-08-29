@@ -25,7 +25,8 @@ st.title("%s - %s Offer Model"%(region, model))
 file = st.file_uploader("Upload file", type = ['csv', 'xlsx'])
 
 #selected class of preprocessing
-preprocessingDict = {'ApacGroupInt':ApacGroupInt_Preprocessing(),
+# 'ApacGroupInt':ApacGroupInt_Preprocessing(),
+preprocessingDict = {
                     'King': King_Preprocessing(),
                     'York':York_Preprocessing(),
                     'Birmingham':Birmingham_Preprocessing(),
