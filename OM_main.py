@@ -8,6 +8,7 @@ from Birmingham.Preprocessing import Birmingham_Preprocessing
 from Greenwich.Preprocessing import Greenwich_Preprocessing
 from RCA.Preprocessing import RCA_Preprocessing
 from Stirling.Preprocessing import Stirling_Preprocessing
+from Kent.Preprocessing import Kent_Preprocessing
 import pandas as pd
 import json
 import base64
@@ -15,7 +16,7 @@ import base64
 #model list for APAC and EMEA
 modelList = {'APAC':['ApacGroupInt', 'MacqDom'],
             'EMEA':['EmeaGroupInt', 'King', 'York', 'Birmingham', 'Greenwich',
-            'RCA', 'Stirling']}
+            'RCA', 'Stirling', 'Kent']}
 
 #dropdown box
 region = st.selectbox('Select a region', ['APAC', 'EMEA'])
@@ -37,7 +38,8 @@ preprocessingDict = {'ApacGroupInt':ApacGroupInt_Preprocessing(),
                     'Birmingham':Birmingham_Preprocessing(),
                     'Greenwich':Greenwich_Preprocessing(),
                     'RCA':RCA_Preprocessing(),
-                    'Stirling':Stirling_Preprocessing()}
+                    'Stirling':Stirling_Preprocessing(),
+                    'Kent':Kent_Preprocessing()}
 selectPreprocessing = preprocessingDict[model]
 
 #set up pipeline
