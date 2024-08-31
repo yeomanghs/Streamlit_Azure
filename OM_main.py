@@ -2,6 +2,7 @@ import streamlit as st
 # from sklearn.pipeline import Pipeline
 from ApacGroupInt.Preprocessing import ApacGroupInt_Preprocessing
 from MacqDom.Preprocessing import MacqDom_Preprocessing
+from GriffDom.Preprocessing import GriffDom_Preprocessing
 from EmeaGroupInt.Preprocessing import EmeaGroupInt_Preprocessing
 from King.Preprocessing import King_Preprocessing
 from York.Preprocessing import York_Preprocessing
@@ -19,9 +20,13 @@ modelType = st.sidebar.radio("Select a model type",
 ['Offer Model', 'Second Call Offer Model'])
 
 #offer model list for APAC and EMEA
-modelList = {'APAC':['ApacGroupInt', 'MacqDom'],
-            'EMEA':['EmeaGroupInt', 'King', 'York', 'Birmingham', 'Greenwich',
-            'RCA', 'Stirling', 'Kent']}
+if modelType == 'Offer Model':
+    modelList = {'APAC':['ApacGroupInt', 'MacqDom', 'GriffDom'],
+                'EMEA':['EmeaGroupInt', 'King', 'York', 'Birmingham', 'Greenwich',
+                'RCA', 'Stirling', 'Kent']}
+elif modelType == 'Second Call Offer Model':
+    modelList = {'APAC':['Insearch'],
+                'EMEA':['Group1', 'Group2', 'Group3']}   
 
 #dropdown box
 region = st.selectbox('Select a region', ['APAC', 'EMEA'])
@@ -29,7 +34,7 @@ region = st.selectbox('Select a region', ['APAC', 'EMEA'])
 #dropdown box
 model = st.selectbox("Select a model", modelList[region])
 
-st.title("%s - %s Offer Model"%(region, model))
+st.title("%s - %s %s"%(region, model, modelType))
 
 #widget to upload file
 file = st.file_uploader("Upload file", type = ['csv', 'xlsx'])
@@ -38,6 +43,7 @@ file = st.file_uploader("Upload file", type = ['csv', 'xlsx'])
 # 'ApacGroupInt':ApacGroupInt_Preprocessing(),
 preprocessingDict = {'ApacGroupInt':ApacGroupInt_Preprocessing(),
                      'MacqDom':MacqDom_Preprocessing(),
+                     'GriffDom':GriffDom_Preprocessing(),
                      'EmeaGroupInt':EmeaGroupInt_Preprocessing(),
                     'King': King_Preprocessing(),
                     'York':York_Preprocessing(),
@@ -64,7 +70,14 @@ def load_data(file_uploaded):
 
 if file and modelType == 'Offer Model':
     st.markdown("Uploaded filename: %s"%file.name)
-    df = load_data(file)
+    try:
+        if model=='GriffDom':
+            #instantiate selectPreprocessing
+            df = selectPreprocessing.read(file)
+        else:
+            df = load_data(file)
+    except Exception as e:
+        print(e)
 
     try:
         body = selectPreprocessing.transform(df)
